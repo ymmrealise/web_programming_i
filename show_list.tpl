@@ -1,13 +1,20 @@
 <h3>Basic Todo List, version 1</h3>
 <hr/>
 <table border="1">
-%for row in rows: 
+%for row in rows:
     <tr>
-    %for item in row[1:]:
-        <td>{{str(item)}}</td>
-    %end
+        <td>{{str(row[0])}}</td>
         <td>
-            <a href="/delete_item/{{row[0]}}">DELETE</a>
+             <a href='/get_update_item/{{row[1]}}/0">[{{str(row[2])}}
+        </td>
+        %if row [2]==0:
+            <a href='/set_status/{{row[0]}}/1">[{{str(row[2])}} ] </a>
+        %else:
+           <a href='/set_status/{{row[0]}}/0">[{{str(row[2])}} ] </a>
+        %end
+        </td>
+        <td>
+            <a href="/delete_item/{{row[0]}}/0">DELETE</a>
         </td>
     </tr>
 %end
