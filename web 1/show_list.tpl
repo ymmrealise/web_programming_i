@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h3>Basic Todo List, version 1.1</h3>
 <hr/>
 <table border="1">
@@ -22,3 +23,18 @@
 </table>
 <hr/>
 <a href="/new_item">New Item... :-)</a>
+=======
+<h3>Basic Todo List, version 1</h3>
+<hr/>
+<table border="1">
+%for row in rows:
+    <tr>
+    %for item in row:
+        <td>{{str(item)}}</td>
+    %end
+    </tr>
+%end
+</table>
+<hr/>
+<a href="\new_item">New Item...</a>
+>>>>>>> d0958e2367d422790cb24d3235dcfdd2012eae31
