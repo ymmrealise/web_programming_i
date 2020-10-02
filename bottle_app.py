@@ -21,6 +21,7 @@ def get_show_list():
     cursor.close()
     return template("show_list", rows=result)
 
+
 @get('/set_status/<id:int>/<value:int>')
 def get_set_status(id, value):
     connection = sqlite3.connect("todo.db")
@@ -29,6 +30,7 @@ def get_set_status(id, value):
     connection.commit()
     cursor.close()
     redirect('/')
+
 
 @get('/new_item')
 def get_new_item():
@@ -45,7 +47,8 @@ def post_new_item():
     cursor.close()
     redirect('/')
 
-@get('/update_item')
+
+@get('/update_item/<id:int>')
 def get_update_item(id):
     connection = sqlite3.connect("todo.db")
     cursor = connection.cursor()
@@ -55,14 +58,13 @@ def get_update_item(id):
     return template("update_item", row=result[0])
 
 
-
 @post('/update_item')
 def post_update_item():
-    id = int (request.forms.get("id").strip())
+    id = int(request.forms.get("id").strip())
     updated_item = request.forms.get("updated_item").strip()
     connection = sqlite3.connect("todo.db")
     cursor = connection.cursor()
-    cursor.execute("updatetodo set task=? where id=?",(updated_item, id,))
+    cursor.execute("update todo set task=? where id=?", (updated_item, id,))
     connection.commit()
     cursor.close()
     redirect('/')
@@ -82,5 +84,3 @@ if ON_PYTHONANYWHERE:
 else:
     debug(True)
     run(host="localhost", port=8080)
-
-
