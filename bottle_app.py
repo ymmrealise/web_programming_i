@@ -27,20 +27,20 @@ def get_show_list():
     # ask for a cookie, if we don't have one start a guest session
     session_id = request.cookies.get("session_id",None)
     if session_id == None:
-        session_id == str(uuid.uuid4())
-        session = ({'session_id':session_id, "username":"Guest", "time":int(time.time())})
+        session_id = str(uuid.uuid4())
+        session = {'session_id':session_id, "username":"Guest", "time":int(time.time())}
         db.insert(session)
         response.set_cookie("session_id",session_id)
-    #had a cookie with an id, look up the session
+    # had a cookie with an id, look up the session
     else:
         result = db.search(query.session_id == session_id)
-        #the session isn't found, start a new one
+        # the session isn't found, start a new one
         if len(result) == 0:
-            session_id == str(uuid.uuid4())
-            session = db.insert({'session_id':session_id, "time":int(time.time())})
+            session_id = str(uuid.uuid4())
+            session = {'session_id':session_id, "username":"Guest", "time":int(time.time())}
             db.insert(session)
             response.set_cookie("session_id",session_id)
-            #the session is found, use it
+        # the session is found, use it
         else:
             session=result[0]
 
@@ -54,6 +54,15 @@ def get_show_list():
 @get('/sandbox')
 def get_sandbox():
     return template("sandbox")
+
+@get('/ajaxdemo')
+def get_ajaxdemo():
+    return template("ajaxdemo")
+
+@get('/jquerydemo')
+def get_jquerydemo():
+    return template("jquerydemo")
+
 
 @get('/login')
 def get_login():
